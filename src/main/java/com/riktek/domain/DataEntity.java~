@@ -1,0 +1,7 @@
+package com.riktek.domain;
+
+public class DataEntity
+{
+	private int entityType;
+	private String designation;
+}

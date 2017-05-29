@@ -1,0 +1,13 @@
+package com.riktek.repository;
+
+import org.springframework.data.mongodb.repository.MongoRepository;
+
+import com.riktek.domain.DataEntity;
+import java.util.List;
+
+
+public interface MyRepository extends MongoRepository<DataEntity, String>
+{
+	public DataEntity findByEntityType(int entityType);
+    public List<DataEntity> findByDesignation(String designation);
+}

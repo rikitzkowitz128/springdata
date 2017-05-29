@@ -1,0 +1,14 @@
+package com.riktek.service;
+
+public class MyService
+{
+	public void printMessage()
+	{
+		System.out.println("Goodbye Texas, Hello California!");
+	}
+	
+	public String getMessage()
+	{
+		return("Goodbye Texas, Hello California!");
+	}
+}
