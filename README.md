@@ -1,2 +1,2 @@
-# MY portable project
-# springdata
+# My portable project
+# Springdata
