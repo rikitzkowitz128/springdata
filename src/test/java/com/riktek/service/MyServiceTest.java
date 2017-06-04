@@ -11,7 +11,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import com.riktek.main.AppConfig;
+import com.riktek.app.main.AppConfig;
 
 
 @RunWith(SpringJUnit4ClassRunner.class)

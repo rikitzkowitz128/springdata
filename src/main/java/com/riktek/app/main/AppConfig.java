@@ -1,4 +1,4 @@
-package com.riktek.main;
+package com.riktek.app.main;
 
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;

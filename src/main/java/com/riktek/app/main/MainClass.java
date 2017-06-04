@@ -7,14 +7,18 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Import;
 
 import org.springframework.data.mongodb.repository.config.EnableMongoRepositories;
 
+import com.riktek.app.main.AppConfig;
 
+//@Configuration
+//@EnableAutoConfiguration
+//@ComponentScan({"com.riktek.controller","com.riktek.service"})
+//@EnableMongoRepositories("com.riktek.repository")
 @Configuration
-@EnableAutoConfiguration
-@ComponentScan({"com.riktek.controller","com.riktek.service"})
-@EnableMongoRepositories("com.riktek.repository")
+@Import(AppConfig.class)
 public class MainClass
 {
 	
