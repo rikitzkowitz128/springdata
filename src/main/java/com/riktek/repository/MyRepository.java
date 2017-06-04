@@ -9,6 +9,7 @@ import java.util.Optional;
 public interface MyRepository extends MongoRepository<ScifiProfileDTO, String>
 {
 	public ScifiProfileDTO findByEntityType(int entityType);
-    public List<ScifiProfileDTO> findByDesignation(String designation);
-    //Optional<ScifiProfileDTO> findOne(String id);
+    //public List<ScifiProfileDTO> findByDesignation(String designation);
+    //public Optional<ScifiProfileDTO> findOneOptional(String id);
+   
 }

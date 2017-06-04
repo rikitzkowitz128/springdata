@@ -14,8 +14,7 @@ import com.riktek.domain.ScifiProfile;
 
 import java.util.Optional;
 import java.util.List;
-import java.util.ArrayList;
-import java.util.Iterator;
+import java.util.ArrayList;;
 
 @Service
 public class MyService
@@ -119,6 +118,7 @@ public class MyService
  
     private ScifiProfileDTO findProfileById(String id) 
     {
+    	//Optional<ScifiProfileDTO> result = repository.findOne(id);
     	ScifiProfileDTO result = repository.findOne(id);
         return result;
     }
