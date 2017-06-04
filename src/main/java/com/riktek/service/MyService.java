@@ -51,11 +51,13 @@ public class MyService
 	{
 		ScifiProfileDTO profile = new ScifiProfileDTO();
 		profile.setDesignation("Vorlon");
+		profile.setAge(234);
 		profile.setEntityType(1);
 		repository.save(profile);
 		
 		profile = new ScifiProfileDTO();
 		profile.setDesignation("Minbari");
+		profile.setAge(97);
 		profile.setEntityType(1);
 		repository.save(profile);
 		
@@ -73,9 +75,9 @@ public class MyService
  
     public ScifiProfileRESTDTO delete(String id) 
     {
-        ScifiProfileDTO deleted = findProfileById(id);
-        repository.delete(deleted);
-        ScifiProfile domainObjectOut = getDomainObjectFor(deleted);
+        Optional<ScifiProfileDTO> deleted = findProfileById(id);
+        repository.delete(deleted.get());
+        ScifiProfile domainObjectOut = getDomainObjectFor(deleted.get());
         ScifiProfileRESTDTO returnObject = getRESTDTOObjectFor(domainObjectOut);
         return returnObject;
     }
@@ -94,33 +96,48 @@ public class MyService
         }
         return profileRESTEntries;
     }
+    
+    public List<ScifiProfileRESTDTO> findProfileBetweenAges(int ageGT, int ageLT)
+    {
+    	List<ScifiProfileDTO> profileDTOEntries = repository.findProfileBetweenAges(ageGT, ageLT);
+        List<ScifiProfileRESTDTO> profileRESTEntries = new ArrayList<ScifiProfileRESTDTO>();
+       
+        for(ScifiProfileDTO dtoObject : profileDTOEntries)
+        {
+        	ScifiProfile object = getDomainObjectFor(dtoObject);
+        	ScifiProfileRESTDTO restObject = getRESTDTOObjectFor(object);
+        	profileRESTEntries.add(restObject);
+        }
+        return profileRESTEntries;
+    }
  
  
     public ScifiProfileRESTDTO findById(String id) 
     {
-        ScifiProfileDTO found = findProfileById(id);
-        ScifiProfile domainObjectOut = getDomainObjectFor(found);
+        Optional <ScifiProfileDTO> found = findProfileById(id);
+        ScifiProfile domainObjectOut = getDomainObjectFor(found.get());
         ScifiProfileRESTDTO restObjectOut = getRESTDTOObjectFor(domainObjectOut);
         return restObjectOut;
     }
  
     public ScifiProfileRESTDTO update(ScifiProfileRESTDTO profile) 
     {
-        ScifiProfileDTO updated = findProfileById(profile.getId());
-        
-        updated.update(profile.getEntityType(), profile.getDesignation());
-        updated = repository.save(updated);
-        ScifiProfile domainObjectOut = getDomainObjectFor(updated);
+        Optional <ScifiProfileDTO> updated = findProfileById(profile.getId());
+        ScifiProfileDTO updatedObject = updated.get();
+        updatedObject.update(profile.getEntityType(), profile.getDesignation());
+        updatedObject = repository.save(updated.get());
+        ScifiProfile domainObjectOut = getDomainObjectFor(updatedObject);
         ScifiProfileRESTDTO returnObject = getRESTDTOObjectFor(domainObjectOut);
         
         return returnObject;
     }
  
-    private ScifiProfileDTO findProfileById(String id) 
+    private Optional<ScifiProfileDTO> findProfileById(String id) 
     {
-    	//Optional<ScifiProfileDTO> result = repository.findOne(id);
-    	ScifiProfileDTO result = repository.findOne(id);
-        return result;
+    	Optional<ScifiProfileDTO> resultA = repository.findOneOptional(id);
+    	//ScifiProfileDTO result = repository.findOne(id);
+    	resultA.orElseThrow( IllegalStateException::new );
+        return resultA;
     }
     
     
@@ -129,6 +146,7 @@ public class MyService
     	ScifiProfile toObj = new ScifiProfile();
     	toObj.setDesignation(fromObj.getDesignation());
     	toObj.setEntityType(fromObj.getEntityType());
+    	toObj.setAge(fromObj.getAge());
     	return toObj;
     }
     
@@ -137,6 +155,7 @@ public class MyService
     	ScifiProfile toObj = new ScifiProfile();
     	toObj.setDesignation(fromObj.getDesignation());
     	toObj.setEntityType(fromObj.getEntityType());
+    	toObj.setAge(fromObj.getAge());
     	return toObj;
     }
     
@@ -146,6 +165,7 @@ public class MyService
     	ScifiProfileDTO toObj = new ScifiProfileDTO();
     	toObj.setDesignation(fromObj.getDesignation());
     	toObj.setEntityType(fromObj.getEntityType());
+    	toObj.setAge(fromObj.getAge());
     	return toObj;
     }
     
@@ -155,6 +175,7 @@ public class MyService
     	ScifiProfileRESTDTO toObj = new ScifiProfileRESTDTO();
     	toObj.setDesignation(fromObj.getDesignation());
     	toObj.setEntityType(fromObj.getEntityType());
+    	toObj.setAge(fromObj.getAge());
     	return toObj;
     }
  
