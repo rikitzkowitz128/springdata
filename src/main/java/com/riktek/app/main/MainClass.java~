@@ -1,27 +1,36 @@
 package com.riktek.app.main;
 
 //import org.apache.log4j.Logger;
+
 import org.springframework.boot.SpringApplication;
+import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 
+
+import org.springframework.data.mongodb.repository.config.EnableMongoRepositories;
+
+
 import com.riktek.service.MyService;
+import com.riktek.repository.MyRepository;
+import com.riktek.domain.DataEntity;
 
 @Configuration
 @EnableAutoConfiguration
-@ComponentScan("com.riktek.controller")
+@ComponentScan({"com.riktek.controller","com.riktek.service"})
+@EnableMongoRepositories("com.riktek.repository")
 public class MainClass
 {
-
+	
 	//private static final Logger LOGGER = Logger.getLogger(MainClass.class);
+
 	
 	public static void main(String [] args)
 	{
 		 SpringApplication.run(MainClass.class, args);
-		//MyService myService = new MyService();
- 
-        //String message = myService.getMessage();
-        //LOGGER.info(message);
+		
 	}
+	
+
 }

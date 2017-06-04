@@ -1,13 +1,14 @@
 package com.riktek.repository;
 
 import org.springframework.data.mongodb.repository.MongoRepository;
-import org.springframework.data.mongodb.repository.config.EnableMongoRepositories;
-import com.riktek.domain.DataEntity;
-import java.util.List;
+import com.riktek.repository.dto.ScifiProfileDTO;
 
-@EnableMongoRepositories
-public interface MyRepository extends MongoRepository<DataEntity, String>
+import java.util.List;
+import java.util.Optional;
+
+public interface MyRepository extends MongoRepository<ScifiProfileDTO, String>
 {
-	public DataEntity findByEntityType(int entityType);
-    public List<DataEntity> findByDesignation(String designation);
+	public ScifiProfileDTO findByEntityType(int entityType);
+    public List<ScifiProfileDTO> findByDesignation(String designation);
+    //Optional<ScifiProfileDTO> findOne(String id);
 }

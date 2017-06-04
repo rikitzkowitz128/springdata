@@ -4,14 +4,16 @@ buildscript {
     }
     dependencies {
         classpath(
-                'org.springframework.boot:spring-boot-gradle-plugin:1.4.0.RELEASE'
-                //,'org.unbroken-dome.gradle-plugins:gradle-testsets-plugin:1.0.2'
+                'org.springframework.boot:spring-boot-gradle-plugin:1.4.0.RELEASE',
+                "org.jfrog.buildinfo:build-info-extractor-gradle:4+"
+                ,'org.unbroken-dome.gradle-plugins:gradle-testsets-plugin:1.0.2'
         )
     }
 }
 
 apply plugin: 'java'
-//apply plugin: 'org.unbroken-dome.test-sets'
+apply plugin: 'org.unbroken-dome.test-sets'
+apply plugin: "com.jfrog.artifactory"
 apply plugin: 'spring-boot'
 
 sourceCompatibility = 1.8
@@ -20,11 +22,11 @@ targetCompatibility = 1.8
 repositories {
     mavenCentral()
 }
-/*
+
 testSets {
     integrationTest { dirName = 'integration-test' }
 }
-*/
+
 dependencies {
     compile(
             'org.springframework.boot:spring-boot-starter-actuator'
@@ -32,13 +34,37 @@ dependencies {
             //,'org.hibernate:hibernate-entitymanager'
             ,'org.springframework.data:spring-data-jpa'
             ,'org.springframework.boot:spring-boot-starter-data-mongodb'
-    )/*
+            ,'org.projectlombok:lombok:1.16.16'
+    )
     testCompile(
-            'com.nitorcreations:junit-runners:1.2',
+            //'com.nitorcreations:junit-runners:1.3',
+            //'info.cukes:cucumber-junit:1.2.5',
+            'junit:junit:4.12',
             'org.springframework.boot:spring-boot-starter-test'
-    )*/
+    )
 }
-/*
+
+artifactory {
+    contextUrl = "http://localhost:8081/artifactory"   //The base Artifactory URL if not overridden by the publisher/resolver
+    publish {
+    	repository {
+            repoKey = 'gradle-dev-local'
+            username = "admin"
+            password = "duck10245"
+            maven = true
+            
+        }
+    }
+    resolve {
+        repository {
+            repoKey = 'gradle-dev'
+            username = "admin"
+            password = "duck10245"
+            maven = true
+            
+        }
+    }
+}
 //If you want to ensure that integration tests are run every time when you invoke
 //this task, uncomment the following block.
 project.integrationTest {
@@ -53,4 +79,4 @@ integrationTest.mustRunAfter test
 //Ensure that the HTML reports of unit and integration tests are written to different directories.
 tasks.withType(Test) {
     reports.html.destination = file("${reporting.baseDir}/${name}")
-}*/
+}
