@@ -5,14 +5,15 @@ buildscript {
     dependencies {
         classpath(
                 'org.springframework.boot:spring-boot-gradle-plugin:1.4.0.RELEASE',
-                "org.jfrog.buildinfo:build-info-extractor-gradle:4+"
+                'org.jfrog.buildinfo:build-info-extractor-gradle:4+'
                 ,'org.unbroken-dome.gradle-plugins:gradle-testsets-plugin:1.0.2'
+                ,'net.saliman:gradle-cobertura-plugin:2.2.7'
         )
     }
 }
 
 apply plugin: 'java'
-apply plugin: 'org.unbroken-dome.test-sets'
+//apply plugin: 'org.unbroken-dome.test-sets'
 apply plugin: "com.jfrog.artifactory"
 apply plugin: 'spring-boot'
 
@@ -23,14 +24,21 @@ repositories {
     mavenCentral()
 }
 
+
+/*
 testSets {
     integrationTest { dirName = 'integration-test' }
 }
+*/
 
 dependencies {
     compile(
             'org.springframework.boot:spring-boot-starter-actuator'
             ,'org.springframework.boot:spring-boot-starter-thymeleaf'
+            ,'org.springframework.integration:spring-integration-core:4.3.9.RELEASE'
+            ,'org.springframework.integration:spring-integration-java-dsl:1.2.2.RELEASE'
+             ,'org.springframework.integration:spring-integration-ws'
+             ,'org.springframework.integration:spring-integration-xml'
             //,'org.hibernate:hibernate-entitymanager'
             ,'org.springframework.data:spring-data-jpa'
             ,'org.springframework.data:spring-data-rest-webmvc'
@@ -44,6 +52,8 @@ dependencies {
             'org.springframework.boot:spring-boot-starter-test'
     )
 }
+
+//mainClassName = "com.riktek.app.main.MainClass"
 
 artifactory {
     contextUrl = "http://localhost:8081/artifactory"   //The base Artifactory URL if not overridden by the publisher/resolver
@@ -66,6 +76,8 @@ artifactory {
         }
     }
 }
+
+/*
 //If you want to ensure that integration tests are run every time when you invoke
 //this task, uncomment the following block.
 project.integrationTest {
@@ -81,3 +93,4 @@ integrationTest.mustRunAfter test
 tasks.withType(Test) {
     reports.html.destination = file("${reporting.baseDir}/${name}")
 }
+*/
